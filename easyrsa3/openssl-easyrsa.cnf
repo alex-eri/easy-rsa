@@ -1,4 +1,7 @@
+
 # For use with Easy-RSA 3.0+ and OpenSSL or LibreSSL
+
+openssl_conf = openssl_def
 
 ####################################################################
 [ ca ]
@@ -125,11 +128,11 @@ authorityKeyIdentifier=keyid:always,issuer:always
 
 # This could be marked critical, but it's nice to support reading by any
 # broken clients who attempt to do so.
-basicConstraints = CA:true
+basicConstraints = critical, CA:true
 
 # Limit key usage to CA tasks. If you really want to use the generated pair as
 # a self-signed cert, comment this out.
-keyUsage = cRLSign, keyCertSign
+keyUsage = critical, cRLSign, keyCertSign
 
 # nsCertType omitted by default. Let's try to let the deprecated stuff die.
 # nsCertType = sslCA
@@ -144,3 +147,15 @@ keyUsage = cRLSign, keyCertSign
 
 # issuerAltName=issuer:copy
 authorityKeyIdentifier=keyid:always,issuer:always
+
+
+
+[openssl_def]
+engines = engine_section
+
+[engine_section]
+gost = gost_section
+
+[gost_section]
+engine_id = gost
+default_algorithms = ALL

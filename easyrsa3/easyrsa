@@ -1445,6 +1445,16 @@ Unable to create necessary PKI files (permissions?)"
 
 	# Generate CA Key
 	case "$EASYRSA_ALGO" in
+	gost2012_256)
+	easyrsa_openssl genpkey -algorithm "$EASYRSA_ALGO" \
+		"$EASYRSA_ALGO_PARAMS" \
+		-out "$out_key_tmp" \
+		${cipher+ "$cipher"} \
+		${EASYRSA_PASSOUT:+ -pass "$EASYRSA_PASSOUT"} \
+		${out_key_pass_tmp:+ -pass file:"$out_key_pass_tmp"} \
+			|| die "Failed create CA private key"
+
+	;;
 	rsa)
 	easyrsa_openssl genpkey -algorithm "$EASYRSA_ALGO" \
 		-pkeyopt rsa_keygen_bits:"$EASYRSA_ALGO_PARAMS" \
@@ -1668,6 +1678,20 @@ gen_req - easyrsa_mktemp - req_out_tmp"
 		algo_opts="$EASYRSA_ALGO:$EASYRSA_ALGO_PARAMS"
 	fi
 
+	# TODO
+
+    if [ "gost2012_256"  = "$EASYRSA_ALGO" ]; then
+		#algo_opts="gost2012_256 -pkeyopt dgst:streebog256 -pkeyopt paramset:A"
+
+		easyrsa_openssl req -utf8 -new -newkey gost2012_256 -pkeyopt paramset:TCB \
+		-keyout "$key_out_tmp" -out "$req_out_tmp" \
+		${EASYRSA_NO_PASS+ "$no_password"} \
+		${text+ -text} \
+		${ssl_batch+ -batch} \
+		${EASYRSA_PASSOUT:+ -passout "$EASYRSA_PASSOUT"} \
+			|| die "Failed to generate request"
+	else
+
 	# Generate request
 	easyrsa_openssl req -utf8 -new -newkey "$algo_opts" \
 		-keyout "$key_out_tmp" -out "$req_out_tmp" \
@@ -1676,7 +1700,7 @@ gen_req - easyrsa_mktemp - req_out_tmp"
 		${ssl_batch+ -batch} \
 		${EASYRSA_PASSOUT:+ -passout "$EASYRSA_PASSOUT"} \
 			|| die "Failed to generate request"
-
+    fi
 	# Move temp-files to target-files
 	mv "$key_out_tmp" "$key_out"
 	mv "$req_out_tmp" "$req_out"
@@ -4409,6 +4433,9 @@ show_host() {
 verify_algo_params() {
 	# EASYRSA_ALGO_PARAMS must be set depending on selected algo
 	case "$EASYRSA_ALGO" in
+	gost2012_256)
+		EASYRSA_ALGO_PARAMS="-pkeyopt paramset:TCB"
+	;;
 	rsa)
 		# Set RSA key size
 		EASYRSA_ALGO_PARAMS="$EASYRSA_KEY_SIZE"
@@ -4612,6 +4639,9 @@ Sourcing the vars file and building certificates will probably fail ..'
 	set_var EASYRSA_ALGO			rsa
 
 	case "$EASYRSA_ALGO" in
+	gost2012_256)
+		set_var EASYRSA_KEY_SIZE	256
+	;;
 	rsa)
 		set_var EASYRSA_KEY_SIZE	2048
 	;;

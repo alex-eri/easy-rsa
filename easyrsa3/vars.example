@@ -57,7 +57,7 @@ fi
 # back-slashes.) Windows users should declare the full path to the openssl
 # binary here if it is not in their system PATH.
 #
-#set_var EASYRSA_OPENSSL	"openssl"
+set_var EASYRSA_OPENSSL	"openssl"
 #
 # This sample is in Windows syntax -- edit it for your path if not using PATH:
 #set_var EASYRSA_OPENSSL	"C:/Program Files/OpenSSL-Win32/bin/openssl.exe"
@@ -98,11 +98,11 @@ fi
 #       in these "Organizational fields" by Easy-RSA:
 #       back-tick (`)
 #
-#set_var EASYRSA_REQ_COUNTRY	"US"
-#set_var EASYRSA_REQ_PROVINCE	"California"
-#set_var EASYRSA_REQ_CITY	"San Francisco"
+set_var EASYRSA_REQ_COUNTRY	"RU"
+set_var EASYRSA_REQ_PROVINCE	"Ивановская обл."
+set_var EASYRSA_REQ_CITY	"Иваново"
 #set_var EASYRSA_REQ_ORG	"Copyleft Certificate Co"
-#set_var EASYRSA_REQ_EMAIL	"me@example.net"
+set_var EASYRSA_REQ_EMAIL	"sa@eri.su"
 #set_var EASYRSA_REQ_OU		"My Organizational Unit"
 
 # Set no password mode - This will create the entire PKI without passwords.
@@ -110,7 +110,7 @@ fi
 # encrypted with the following command line options:
 # Global option '--no-pass' or command option 'nopass'.
 #
-#set_var EASYRSA_NO_PASS	1
+set_var EASYRSA_NO_PASS	1
 
 # Choose a size in bits for your keypairs. The recommended value is 2048.
 # Using 2048-bit keys is considered more than sufficient for many years into
@@ -118,7 +118,7 @@ fi
 # param generation take much longer. Values up to 4096 should be accepted by
 # most software. Only used when the crypto alg is rsa, see below.
 #
-#set_var EASYRSA_KEY_SIZE	2048
+set_var EASYRSA_KEY_SIZE	256
 
 # The default crypto mode is rsa; ec can enable elliptic curve support.
 # Note that not all software supports ECC, so use care when enabling it.
@@ -127,7 +127,7 @@ fi
 #  * ec
 #  * ed
 #
-#set_var EASYRSA_ALGO		rsa
+set_var EASYRSA_ALGO		gost2012_256
 
 # Define the named curve, used in ec & ed modes:
 #
@@ -139,7 +139,7 @@ fi
 
 # In how many days should certificates expire?
 #
-#set_var EASYRSA_CERT_EXPIRE	825
+set_var EASYRSA_CERT_EXPIRE	455
 
 # How many days until the next CRL publish date?  Note that the CRL can still
 # be parsed after this timeframe passes. It is only used for an expected next
@@ -154,7 +154,7 @@ fi
 
 # Cut-off window for checking expiring certificates.
 #
-#set_var EASYRSA_CERT_RENEW	90
+set_var EASYRSA_CERT_RENEW	90
 
 # For fixed certificate start/end dates - Range 1..365
 #
@@ -205,7 +205,7 @@ fi
 # Non-functional
 # If you want to generate KDC certificates, you need to set the realm here.
 #
-#set_var EASYRSA_KDC_REALM      "CHANGEME.EXAMPLE.COM"
+set_var EASYRSA_KDC_REALM      "eri.su"
 
 # OpenSSL config file:
 # If you need to use a specific openssl config file, you can reference it here.
@@ -220,7 +220,7 @@ fi
 # Do not change this default unless you understand the security implications.
 # Valid choices include: md5, sha1, sha256, sha224, sha384, sha512
 #
-#set_var EASYRSA_DIGEST		"sha256"
+set_var EASYRSA_DIGEST		"md_gost12_256"
 
 # Batch mode. Leave this disabled unless you intend to call Easy-RSA explicitly
 # in batch mode without any user input, confirmation on dangerous operations,

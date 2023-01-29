@@ -1,0 +1,7 @@
+# X509 extensions for a client
+
+basicConstraints = CA:FALSE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer:always
+extendedKeyUsage = clientAuth,emailProtection,1.2.840.113583.1.1.5,1.3.6.1.4.1.311.10.3.12
+keyUsage = digitalSignature,nonRepudiation,dataEncipherment,keyEncipherment
