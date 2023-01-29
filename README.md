@@ -1,3 +1,13 @@
+# Сертификаты для подписи документов
+
+```
+./easyrsa init-pki
+./easyrsa build-ca
+./easyrsa gen-req clientname
+./easyrsa sign-req document-signing clientname
+./easyrsa export-p12 clientname
+```
+
 [![CI](https://github.com/Openvpn/easy-rsa/actions/workflows/action.yml/badge.svg)](https://github.com/Openvpn/easy-rsa/actions/workflows/action.yml)
 # Overview
 
