@@ -1447,7 +1447,7 @@ Unable to create necessary PKI files (permissions?)"
 	case "$EASYRSA_ALGO" in
 	gost2012_256)
 	easyrsa_openssl genpkey -algorithm "$EASYRSA_ALGO" \
-		"$EASYRSA_ALGO_PARAMS" \
+		$EASYRSA_ALGO_PARAMS \
 		-out "$out_key_tmp" \
 		${cipher+ "$cipher"} \
 		${EASYRSA_PASSOUT:+ -pass "$EASYRSA_PASSOUT"} \
